@@ -24,7 +24,7 @@ final class Day07Tests: XCTestCase {
         
         for testCase in testCases {
             // When
-            var parsedHand = Day07.Hand(from: testCase.hand)
+            let parsedHand = Day07.Hand(from: testCase.hand)
             
             // Then
             XCTAssertEqual(parsedHand.rank, testCase.expectedRank)
