@@ -28,7 +28,9 @@ private struct Race {
     }
 }
 
-struct Day06: AdventDay {
+struct Day06_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     
     fileprivate var lines: [String] {

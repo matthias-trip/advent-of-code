@@ -60,8 +60,9 @@ struct Almanac {
     }
 }
 
-struct Day05: AdventDay {
-    
+struct Day05_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     
     func part1() -> Any {

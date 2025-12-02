@@ -3,14 +3,14 @@ import XCTest
 @testable import AdventOfCode
 
 final class Day07Tests: XCTestCase {
-    
+
     private struct RankTestCase {
         let hand: String
-        let expectedRank: Day07.Rank
+        let expectedRank: Day07_2024.Rank
     }
-    
+
     let testHand = "32T3K 765"
-    
+
     func test_hand_rank_fiveOfAKind() {
         let testCases: [RankTestCase] = [
             .init(hand: "AAAAA 100", expectedRank: .fiveOfaKind),
@@ -21,11 +21,11 @@ final class Day07Tests: XCTestCase {
             .init(hand: "A23A4 100", expectedRank: .onePair),
             .init(hand: "23456 100", expectedRank: .highCard)
         ]
-        
+
         for testCase in testCases {
             // When
-            let parsedHand = Day07.Hand(from: testCase.hand)
-            
+            let parsedHand = Day07_2024.Hand(from: testCase.hand)
+
             // Then
             XCTAssertEqual(parsedHand.rank, testCase.expectedRank)
         }

@@ -1,6 +1,8 @@
 import Algorithms
 
-struct Day08: AdventDay {
+struct Day08_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     
     struct Network{

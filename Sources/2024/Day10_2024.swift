@@ -2,7 +2,9 @@ import Foundation
 
 import Algorithms
 
-struct Day10: AdventDay {
+struct Day10_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     enum Tile: Character {
         case ns = "|"
         case ew = "-"
@@ -172,8 +174,8 @@ struct Day10: AdventDay {
     
 }
 
-private extension Array where Element == [Day10.Tile] {
-    subscript(index: Day10.Point) -> Day10.Tile {
+private extension Array where Element == [Day10_2024.Tile] {
+    subscript(index: Day10_2024.Point) -> Day10_2024.Tile {
         get {
             guard 0..<count ~= index.y, 0..<self[index.y].count ~= index.x else { return .ground }
             return self[index.y][index.x]

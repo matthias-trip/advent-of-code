@@ -1,7 +1,9 @@
 import Algorithms
 import Foundation
 
-struct Day03: AdventDay {
+struct Day03_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     
     private var symbols: Set<Point> = []

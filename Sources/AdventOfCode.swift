@@ -1,46 +1,77 @@
 import ArgumentParser
 
-// Add each new day implementation to this array:
-let allChallenges: [any AdventDay] = [
-  Day00(),
-  Day01(),
-  Day02(),
-  Day03(),
-  Day04(),
-  Day05(),
-  Day06(),
-  Day07(),
-  Day08(),
-  Day09(),
-  Day10()
+// Add each new year's challenges to this dictionary:
+let challengesByYear: [Int: [any AdventChallenge.Type]] = [
+  2024: [
+    Day01_2024.self,
+    Day02_2024.self,
+    Day03_2024.self,
+    Day04_2024.self,
+    Day05_2024.self,
+    Day06_2024.self,
+    Day07_2024.self,
+    Day08_2024.self,
+    Day09_2024.self,
+    Day10_2024.self
+  ],
+  2025: [
+    Day01_2025.self
+  ]
 ]
+
+// Default year for convenience
+let defaultYear = 2025
 
 @main
 struct AdventOfCode: AsyncParsableCommand {
+  @Option(name: .shortAndLong, help: "The year of the challenge (e.g., 2024, 2025).")
+  var year: Int?
+
   @Argument(help: "The day of the challenge. For December 1st, use '1'.")
   var day: Int?
 
   @Flag(help: "Benchmark the time taken by the solution")
   var benchmark: Bool = false
 
-  /// The selected day, or the latest day if no selection is provided.
-  var selectedChallenge: any AdventDay {
+  /// The selected year, or the default year if no selection is provided.
+  var selectedYear: Int {
+    year ?? defaultYear
+  }
+
+  /// The challenge types for the selected year.
+  var yearChallengeTypes: [any AdventChallenge.Type] {
     get throws {
+      guard let challenges = challengesByYear[selectedYear] else {
+        throw ValidationError("No challenges found for year \(selectedYear)")
+      }
+      return challenges
+    }
+  }
+
+  /// The selected day, or the latest day if no selection is provided.
+  /// Only initializes the challenge that's actually needed.
+  var selectedChallenge: any AdventChallenge {
+    get throws {
+      let challengeTypes = try yearChallengeTypes
       if let day {
-        if let challenge = allChallenges.first(where: { $0.day == day }) {
-          return challenge
+        if let challengeType = challengeTypes.first(where: { $0.day == day }) {
+          return challengeType.init()
         } else {
-          throw ValidationError("No solution found for day \(day)")
+          throw ValidationError("No solution found for day \(day) in year \(selectedYear)")
         }
       } else {
-        return latestChallenge
+        return try latestChallenge
       }
     }
   }
 
-  /// The latest challenge in `allChallenges`.
-  var latestChallenge: any AdventDay {
-    allChallenges.max(by: { $0.day < $1.day })!
+  /// The latest challenge in the selected year.
+  var latestChallenge: any AdventChallenge {
+    get throws {
+      let challengeTypes = try yearChallengeTypes
+      let latestType = challengeTypes.max(by: { $0.day < $1.day })!
+      return latestType.init()
+    }
   }
 
   func run(part: () async throws -> Any, named: String) async -> Duration {
@@ -63,7 +94,7 @@ struct AdventOfCode: AsyncParsableCommand {
 
   func run() async throws {
     let challenge = try selectedChallenge
-    print("Executing Advent of Code challenge \(challenge.day)...")
+    print("Executing Advent of Code \(challenge.year) - Day \(challenge.day)...")
 
     let timing1 = await run(part: challenge.part1, named: "Part 1")
     let timing2 = await run(part: challenge.part2, named: "Part 2")

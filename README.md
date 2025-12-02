@@ -27,19 +27,50 @@ extensions useful:
 
 ## Challenges
 
-The challenges assume three files (replace 00 with the day of the challenge).
+Challenges are organized by year. Each year has its own directory with source files and data:
 
-- `Data/Day00.txt`: the input data provided for the challenge
-- `Sources/Day00.swift`: the code to solve the challenge
-- `Tests/Day00.swift`: any unit tests that you want to include
+```
+Sources/
+├── 2024/
+│   ├── Day01_2024.swift
+│   └── Day02_2024.swift
+├── 2025/
+│   └── Day01_2025.swift
+├── Resources/
+│   ├── 2024/
+│   │   ├── Day01.txt
+│   │   └── Day02.txt
+│   └── 2025/
+│       └── Day01.txt
+├── AdventChallenge.swift
+└── AdventOfCode.swift
+```
 
-To start a new day's challenge, make a copy of these files and update as
-necessary. The `AdventOfCode.swift` file controls which day's challenge is run
-with `swift run`. By default that runs the most recent challenge in the package.
+To start a new day's challenge:
 
-To supply command line arguments use `swift run AdventOfCode`. For example,
-`swift run -c release AdventOfCode --benchmark 3` builds the binary with full
-optimizations, and benchmarks the challenge for day 3.
+1. Create the source file `Sources/{year}/Day{XX}_{year}.swift` (e.g., `Day01_2024.swift`)
+2. Add your input data to `Sources/Resources/{year}/Day{XX}.txt`
+3. Register the challenge type in `AdventOfCode.swift`
+
+Each challenge struct should conform to `AdventChallenge` and specify its year:
+
+```swift
+struct Day01_2024: AdventChallenge {
+    static var year: Int { 2024 }
+    var data: String
+
+    func part1() -> Any { ... }
+    func part2() -> Any { ... }
+}
+```
+
+The `AdventOfCode.swift` file controls which challenge is run with `swift run`.
+By default it runs the most recent challenge for the default year.
+
+To supply command line arguments use `swift run AdventOfCode`. For example:
+- `swift run AdventOfCode 3` runs day 3 of the default year
+- `swift run AdventOfCode --year 2024 3` runs day 3 of 2024
+- `swift run -c release AdventOfCode --benchmark 3` builds with full optimizations and benchmarks day 3
 
 ## Linting and Formatting
 

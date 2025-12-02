@@ -1,8 +1,9 @@
 import Algorithms
 import Foundation
 
-struct Day02: AdventDay {
-    
+struct Day02_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     private struct Game {
         let id: Int
         let sets: [Set]

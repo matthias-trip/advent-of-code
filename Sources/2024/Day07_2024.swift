@@ -1,7 +1,8 @@
 import Algorithms
 
-struct Day07: AdventDay {
-    
+struct Day07_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     static var cardRank: Dictionary<String, Int> = ["A": 14,
                                                     "K": 13,
                                                     "Q": 12,
@@ -17,7 +18,7 @@ struct Day07: AdventDay {
                                                     "2": 2]
     
     // In part 2, card "J" is now just weighted as 1
-    static var jokerCardRank = Day07.cardRank.merging(["J": 1]) { $1 }
+    static var jokerCardRank = Day07_2024.cardRank.merging(["J": 1]) { $1 }
     
     enum Rank: Int, Comparable {
         case highCard
@@ -28,7 +29,7 @@ struct Day07: AdventDay {
         case fourOfaKind
         case fiveOfaKind
         
-        static func < (lhs: Day07.Rank, rhs: Day07.Rank) -> Bool {
+        static func < (lhs: Day07_2024.Rank, rhs: Day07_2024.Rank) -> Bool {
             return lhs.rawValue < rhs.rawValue
         }
         
@@ -99,7 +100,7 @@ struct Day07: AdventDay {
                 // If the ranks are equal find the card with the highest individual ranking
                 for (c1, c2) in zip(lhs.cards, rhs.cards) {
                     if c1 != c2 {
-                        return Day07.cardRank[c1]! < Day07.cardRank[c2]!
+                        return Day07_2024.cardRank[c1]! < Day07_2024.cardRank[c2]!
                     }
                 }
                 
@@ -128,7 +129,7 @@ struct Day07: AdventDay {
                 // If the ranks are equal find the card with the highest individual ranking
                 for (c1, c2) in zip(lhs.cards, rhs.cards) {
                     if c1 != c2 {
-                        return Day07.jokerCardRank[c1]! < Day07.jokerCardRank[c2]!
+                        return Day07_2024.jokerCardRank[c1]! < Day07_2024.jokerCardRank[c2]!
                     }
                 }
                 

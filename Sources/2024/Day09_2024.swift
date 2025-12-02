@@ -2,7 +2,9 @@ import Foundation
 
 import Algorithms
 
-struct Day09: AdventDay {
+struct Day09_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     
     let sequences: [[Int]]

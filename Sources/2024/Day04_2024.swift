@@ -1,7 +1,7 @@
 import Algorithms
 import Foundation
 
-struct Card {
+struct Card_2024 {
     let id: Int
     let winnningNumbers: Set<Int>
     let myNumbers: Set<Int>
@@ -23,13 +23,15 @@ struct Card {
     }
 }
 
-struct Day04: AdventDay {
+struct Day04_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     
-    private var cards: [Card] {
+    private var cards: [Card_2024] {
         return self.data.components(separatedBy: "\n")
             .filter { !$0.isEmpty}
-            .map { Card(from: $0) }
+            .map { Card_2024(from: $0) }
     }
     
     

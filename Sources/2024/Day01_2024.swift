@@ -1,7 +1,8 @@
 import Algorithms
 
-struct Day01: AdventDay {
-    
+struct Day01_2024: AdventChallenge {
+    static var year: Int { 2024 }
+
     var data: String
     var lines: [String] {
         return self.data.components(separatedBy: "\n").filter { $0.isEmpty == false }
