@@ -4,43 +4,36 @@ struct Day02_2025: AdventChallenge {
     static var year: Int { 2025 }
     
     var data: String
-    var ranges:  [ClosedRange<Int>]
-    
+
     init(data: String) {
         self.data = data
-        self.ranges = self.data
-            .components(separatedBy: ",")
-            .compactMap {
-                let range = $0.components(separatedBy: "-")
-                guard let start = Int(range[0]),
-                      let end = Int(range[1]) else {
-                    return nil
-                }
-                
-                return start...end
-        }
     }
     
     func part1() async throws -> Any {
-        let uniqueIDs = Set(self.ranges.flatMap { $0 })
-        
-        return uniqueIDs
-            .compactMap { $0 }
-            .filter(isInvalid)
+        let result = self.data
+            .split(separator: ",")
+            .compactMap { range in
+                let ranges = range
+                    .split(separator: "-")
+                    .compactMap {
+                        let str = String($0).replacingOccurrences(of: "\n", with: "")
+                        return Int(str)
+                    }
+                
+                return Array(ranges[0]...ranges[1])
+            }
+            .reduce(into: Array<Int>()) { $0.append(contentsOf: $1) }
+            .filter {
+                let str = String($0).evenlyChunked(in: 2)
+                guard let first = str.first, let last = str.last else {
+                    return false
+                }
+                
+                return first.elementsEqual(last)
+            }
             .reduce(0, +)
+        
+        return result
     }
-    
-    func isInvalid(_ n: Int) -> Bool {
-        let s = String(n)
-        let len = s.count
-        
-        guard len >= 2 && len % 2 == 0 else { return false }
-        
-        let halfLen = len / 2
-        let firstHalf = s.prefix(halfLen)
-        let secondHalf = s.suffix(halfLen)
-        
-        return firstHalf == secondHalf
-    }
- 
+
 }
