@@ -32,4 +32,11 @@ struct Day05_2025: AdventChallenge {
             return self.freshIngredients.contains($0)
         }
     }
+    
+    func part2() async throws -> Any {
+        return self.freshIngredients
+            .ranges
+            .map { return $0.count }
+            .reduce(0, +)
+    }
 }
