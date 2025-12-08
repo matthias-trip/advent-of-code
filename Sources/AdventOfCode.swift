@@ -17,7 +17,8 @@ let challengesByYear: [Int: [any AdventChallenge.Type]] = [
   2025: [
     Day01_2025.self,
     Day02_2025.self,
-    Day03_2025.self
+    Day03_2025.self,
+    Day04_2025.self
   ]
 ]
 
