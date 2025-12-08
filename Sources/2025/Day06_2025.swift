@@ -61,4 +61,36 @@ struct Day06_2025: AdventChallenge {
         return self.puzzles
             .reduce(0) { $0 + $1.solve() }
     }
+    
+    func part2() async throws -> Any {
+        let numbers = self.data
+            .components(separatedBy: .newlines)
+            .dropLast()
+            .map {
+                Array($0)
+                    .map(\.wholeNumberValue)
+            }
+            .reductions {
+                zip($0, $1)
+                    .map {
+                        $1 != nil ? ($0 ?? 0) * 10 + ($1 ?? 0) : $0
+                    }
+            }
+            .last
+            
+    
+           return numbers.map { (nums: [Int?]) -> Int in
+                zip(
+                    nums.split(separator: nil),
+                    self.data.filter { "+*".contains($0) },
+                )
+                .compactMap {
+                    $0
+                        .compacted()
+                        .reductions($1 == "+" ? (+) : (*))
+                        .last
+                }
+                .reduce(0, +)
+            } ?? 0
+    }
 }
