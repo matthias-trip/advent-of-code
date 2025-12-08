@@ -20,7 +20,8 @@ nonisolated(unsafe) let challengesByYear: [Int: [any AdventChallenge.Type]] = [
     Day03_2025.self,
     Day04_2025.self,
     Day05_2025.self,
-    Day06_2025.self
+    Day06_2025.self,
+    Day07_2025.self
   ]
 ]
 
