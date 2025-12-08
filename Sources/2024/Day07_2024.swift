@@ -3,7 +3,7 @@ import Algorithms
 struct Day07_2024: AdventChallenge {
     static var year: Int { 2024 }
 
-    static var cardRank: Dictionary<String, Int> = ["A": 14,
+    static let cardRank: Dictionary<String, Int> = ["A": 14,
                                                     "K": 13,
                                                     "Q": 12,
                                                     "J": 11,
@@ -18,7 +18,7 @@ struct Day07_2024: AdventChallenge {
                                                     "2": 2]
     
     // In part 2, card "J" is now just weighted as 1
-    static var jokerCardRank = Day07_2024.cardRank.merging(["J": 1]) { $1 }
+    static let jokerCardRank = Day07_2024.cardRank.merging(["J": 1]) { $1 }
     
     enum Rank: Int, Comparable {
         case highCard

@@ -1,7 +1,7 @@
 import ArgumentParser
 
 // Add each new year's challenges to this dictionary:
-let challengesByYear: [Int: [any AdventChallenge.Type]] = [
+nonisolated(unsafe) let challengesByYear: [Int: [any AdventChallenge.Type]] = [
   2024: [
     Day01_2024.self,
     Day02_2024.self,
@@ -18,7 +18,8 @@ let challengesByYear: [Int: [any AdventChallenge.Type]] = [
     Day01_2025.self,
     Day02_2025.self,
     Day03_2025.self,
-    Day04_2025.self
+    Day04_2025.self,
+    Day05_2025.self
   ]
 ]
 
