@@ -23,13 +23,6 @@ struct Grid<Value> {
         return self.storage[position.row][position.col]
     }
     
-    mutating func setValue(_ value: Value, at position: Position) {
-        guard self.isValid(position) else {
-            return
-        }
-        self.storage[position.row][position.col] = value
-    }
-    
     func allPositions() -> [Position] {
         return (0..<rows).flatMap { row in
             (0..<cols).map { col in
@@ -37,6 +30,21 @@ struct Grid<Value> {
             }
         }
     }
+    
+    func position(for value: Value) -> [Position] where Value: Equatable {
+        self.allPositions()
+            .filter {
+                self.value(at: $0) == value
+            }
+    }
+    
+    mutating func setValue(_ value: Value, at position: Position) {
+        guard self.isValid(position) else {
+            return
+        }
+        self.storage[position.row][position.col] = value
+    }
+    
     
     func adjacentPositions(of position: Position) -> [Position] {
         let offsets = [
@@ -53,5 +61,13 @@ struct Grid<Value> {
     func adjacentValues(of position: Position) -> [Value] {
         self.adjacentPositions(of: position)
             .compactMap { self.value(at: $0) }
+    }
+}
+
+extension Grid {
+    func print() {
+        for row in 0..<rows {
+            Swift.print((0..<cols).map { "\(storage[row][$0])" }.joined(separator: " "))
+        }
     }
 }
